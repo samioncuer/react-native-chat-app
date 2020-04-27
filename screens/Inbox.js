@@ -25,7 +25,7 @@ export default class  Inbox extends React.Component {
         this.setState({userList})
     })
 }
-
+ 
     render() {
         return (
             <View style={styles.container}>
