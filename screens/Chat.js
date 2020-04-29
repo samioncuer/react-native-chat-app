@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default class Chat extends Component {
     render() {
-        const { route } = this.props;
-        const { params } = this.props.navigation.state;
-        const user = params ? params.user.first_name : null;
-
-        console.log(user)
-
+        const { route, navigation } = this.props;
         return (
-
             <View style={styles.container}>
-                <Text>{route.name}</Text>
+                <Text>{route.params?.first_name}</Text>
+
+                <Button title="Geri" onPress={() => navigation.navigate('Inbox')} />
             </View>
         )
     }

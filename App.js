@@ -8,12 +8,12 @@ import 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import { firebaseConfig } from './config';
 
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
 export default function App() {
-
   return (<AppNavigator />
   );
 }
@@ -24,6 +24,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   DashboardScreen: DashboardScreen
 })
 const AppNavigator = createAppContainer(AppSwitchNavigator);
+
 
 const styles = StyleSheet.create({
   container: {
