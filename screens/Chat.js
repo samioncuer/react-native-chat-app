@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
-import {NavigationActions} from 'react-navigation';
-import firebase from 'firebase';
+import { View, Text, StyleSheet } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
+export default class Chat extends Component {
+    render() {
+        const { route } = this.props;
+        const { params } = this.props.navigation.state;
+        const user = params ? params.user.first_name : null;
 
-    class  Chat extends Component { 
-        render() {
-            return (
-                <View style={styles.container}>
-                    <Text>Chat addddaaa aa  aa a Screen</Text>
-                </View>
-            )
-        }    
+        console.log(user)
+
+        return (
+
+            <View style={styles.container}>
+                <Text>{route.name}</Text>
+            </View>
+        )
     }
-    
-    export default Chat;
-    
-    const  styles  = StyleSheet.create({
-        container: {
-            flex: 1,
-            alignItems:  'center',
-            justifyContent: 'center'
-        }
-    });
-
-
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+});
