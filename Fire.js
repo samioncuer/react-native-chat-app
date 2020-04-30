@@ -4,7 +4,7 @@ import firebase from 'firebase'
 class Fire {
     constructor() {
         this.init()
-        this.checkAuth()
+        // this.checkAuth()
     }
     init = () => {
         if (!firebase.apps.length) {
@@ -25,7 +25,7 @@ class Fire {
             const message = {
                 text: item.text,
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
-                user: item.user.route
+                user: item.user
             }
             this.db.push(message);
         });
@@ -53,7 +53,7 @@ class Fire {
     }
 
     get db() {
-        return firebase.database().ref("messages");
+        return firebase.database().ref("messages/" + this.uid);
     }
 
     get uid() {

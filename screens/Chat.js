@@ -14,8 +14,8 @@ export default class Chat extends React.Component {
 
     get user() {
         return {
-            _id: Fire.uid,
-            name: this.getNavigationParams()
+            _id: this.getNavigationParams().route.params.uid,
+            name: this.getNavigationParams().route.params
         }
     }
 
@@ -31,7 +31,7 @@ export default class Chat extends React.Component {
     }
 
     render() {
-        const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user.name} />;
+        const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user} />;
         if (Platform.OS === 'android') {
             return (
                 <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>{chat}</KeyboardAvoidingView>

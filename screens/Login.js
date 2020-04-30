@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
-import { Updates } from 'expo';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
 import Fire from '../Fire';
@@ -10,6 +9,10 @@ import Fire from '../Fire';
 export default class LoginScreen extends Component {
   state = {
     name: ""
+  }
+  constructor() {
+    super();
+    Fire.logout(); //Herhangi bir hatada Login ekranına attığı zaman, user kayıtlı kalmasın diye logout yapıyoruz.
   }
 
   continue = () => {
@@ -87,7 +90,6 @@ export default class LoginScreen extends Component {
 
       if (result.type === 'success') {
         this.onSignIn(result);
-        // console.log(result);
         this.props.navigation.navigate('DashboardScreen', result)
         return result.accessToken;
       } else {

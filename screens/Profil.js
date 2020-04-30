@@ -28,15 +28,12 @@ class Profil extends Component {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         marginTop: 1
-
-
                     }}>
                     <View style={{
                         height: 45, width: 300, backgroundColor: '#FFCCBC', borderRadius: 10,
                         marginTop: 3, paddingTop: 9
                     }}>
-                        <Text style={styles.baseText} >Arkadaşlar(232)
-        </Text>
+                        <Text style={styles.baseText}> Arkadaşlar(232)</Text>
                     </View>
                     <View style={{
                         height: 45, width: 300, backgroundColor: '#FFAB91', borderRadius: 10,
@@ -74,11 +71,9 @@ class Profil extends Component {
                         height: 45, width: 300, backgroundColor: '#DD2C00', borderRadius: 10,
                         marginTop: 3, paddingTop: 9
                     }}>
-                        <Button title="Çıkış Yap" onPress={this.logout} />
+                        <Button title="Çıkış Yap" onPress={() => this.logout} />
 
                     </View>
-
-
                 </View>
             </ScrollView>
         )
