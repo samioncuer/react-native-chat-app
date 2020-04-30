@@ -22,7 +22,7 @@ export default class LoginScreen extends Component {
   }
 
   onSignIn = (googleUser) => {
-    console.log('Google Auth Response', googleUser);
+    // console.log('Google Auth Response', googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase
       .auth()
@@ -40,7 +40,7 @@ export default class LoginScreen extends Component {
             .auth()
             .signInWithCredential(credential)
             .then(function (result) {
-              console.log('user signed in');
+              // console.log('user signed in');
               if (result.additionalUserInfo.isNewUser) {
                 firebase
                   .database()
@@ -122,7 +122,7 @@ export default class LoginScreen extends Component {
             value={this.state.name}
           />
           <View style={{ alignItems: "flex-end", marginTop: 64 }}>
-            <TouchableOpacity style={styles.continue} onPress={this.test}>
+            <TouchableOpacity style={styles.continue} onPress={this.continue}>
               <Ionicons name="md-arrow-round-forward" size={24} color="#fff" />
             </TouchableOpacity>
           </View>

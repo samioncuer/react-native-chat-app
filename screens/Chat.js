@@ -5,18 +5,18 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Fire from '../Fire';
 
 export default class Chat extends React.Component {
-    firstName = "";
     state = {
         messages: []
     }
+
     getNavigationParams() {
-        return this.props.navigation.params || {}
+        return this.props || {};
     }
 
     get user() {
         return {
             _id: Fire.uid,
-            name: this.getNavigationParams()
+            info: this.getNavigationParams()
         }
     }
 
@@ -32,7 +32,7 @@ export default class Chat extends React.Component {
     }
 
     render() {
-        console.log(this.user)
+        console.log(this.user.info.route.params)
         const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user} />;
         if (Platform.OS === 'android') {
             return (

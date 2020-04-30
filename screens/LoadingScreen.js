@@ -2,31 +2,29 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import firebase from 'firebase';
 
-class  LoadingScreen extends Component {
+class LoadingScreen extends Component {
 
     componentDidMount() {
-
         this.checkIfLoggedIn();
-
     }
- 
+
     checkIfLoggedIn = () => {
-         firebase.auth().onAuthStateChanged(
-          function(user) {
-            console.log('AUTH STATE CHANGED CALLED ')      
-          if(user) {
-              this.props.navigation.navigate('DashboardScreen');
-          } else {
-              this.props.navigation.navigate('LoginScreen');
-          }
-          }.bind(this)
-         );
+        firebase.auth().onAuthStateChanged(
+            function (user) {
+                // console.log('AUTH STATE CHANGED CALLED ')      
+                if (user) {
+                    this.props.navigation.navigate('DashboardScreen', user);
+                } else {
+                    this.props.navigation.navigate('LoginScreen');
+                }
+            }.bind(this)
+        );
     };
 
-    render(){
+    render() {
         return (
             <View style={styles.container}>
-                <ActivityIndicator size="large"/>
+                <ActivityIndicator size="large" />
             </View>
         );
     }
@@ -34,10 +32,10 @@ class  LoadingScreen extends Component {
 
 export default LoadingScreen;
 
-const  styles  = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems:  'center',
+        alignItems: 'center',
         justifyContent: 'center'
     }
 });
