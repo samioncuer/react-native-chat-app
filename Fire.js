@@ -4,7 +4,7 @@ import firebase from 'firebase'
 class Fire {
     constructor() {
         this.init()
-        // this.checkAuth()
+        this.checkAuth()
     }
     init = () => {
         if (!firebase.apps.length) {
@@ -22,10 +22,12 @@ class Fire {
 
     send = messages => {
         messages.forEach(item => {
+            // console.log("99999999999999999999999999999:", item.user.route)
+
             const message = {
                 text: item.text,
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
-                user: item.user
+                user: item.user.route
             }
             this.db.push(message);
         });

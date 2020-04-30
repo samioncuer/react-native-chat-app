@@ -32,10 +32,10 @@ export default class Chat extends React.Component {
     }
 
     render() {
-        const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user} />;
+        const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user.name} />;
         if (Platform.OS === 'android') {
             return (
-                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={30} enabled>{chat}</KeyboardAvoidingView>
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>{chat}</KeyboardAvoidingView>
             );
         }
 
