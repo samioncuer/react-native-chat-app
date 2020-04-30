@@ -22,8 +22,6 @@ class Fire {
 
     send = messages => {
         messages.forEach(item => {
-            // console.log("99999999999999999999999999999:", item.user.route)
-
             const message = {
                 text: item.text,
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
@@ -64,6 +62,15 @@ class Fire {
 
     get currentUser() {
         return (firebase.auth().currentUser || {})
+    }
+
+    logout = async () => {
+        try {
+            await firebase.auth().signOut();
+            // signed out
+        } catch (e) {
+            // an error
+        }
     }
 }
 

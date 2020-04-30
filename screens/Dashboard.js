@@ -10,6 +10,7 @@ import Chat from "./Chat";
 import Inbox from "./Inbox";
 
 export default class DashboardScreen extends Component {
+
   render() {
     return (
       <NavigationContainer>

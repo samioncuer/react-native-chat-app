@@ -8,17 +8,12 @@ import { Ionicons } from '@expo/vector-icons'
 import Fire from '../Fire';
 
 export default class LoginScreen extends Component {
-
   state = {
     name: ""
   }
 
   continue = () => {
-    this.props.navigation.navigate('DashboardScreen', { name: this.state.name })
-  }
-
-  test = () => {
-    console.log(Fire.currentUser.isAnonymous);
+    this.props.navigation.navigate('DashboardScreen', this.state)
   }
 
   onSignIn = (googleUser) => {
@@ -92,7 +87,8 @@ export default class LoginScreen extends Component {
 
       if (result.type === 'success') {
         this.onSignIn(result);
-        this.props.navigation.navigate('DashboardScreen', { name: this.state.name })
+        // console.log(result);
+        this.props.navigation.navigate('DashboardScreen', result)
         return result.accessToken;
       } else {
         return { cancelled: true };
