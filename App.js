@@ -6,31 +6,20 @@ import LoginScreen from './screens/LoginScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import 'react-native-gesture-handler';
 import * as firebase from 'firebase';
-import { firebaseConfig } from './config';
+import Chat from './screens/Chat';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
 
-export default function App() {
-  return (<AppNavigator />
-  );
-}
-
-const AppSwitchNavigator = createSwitchNavigator({
-  LoadingScreen: LoadingScreen,
-  LoginScreen: LoginScreen,
-  DashboardScreen: DashboardScreen
-})
-const AppNavigator = createAppContainer(AppSwitchNavigator);
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const AppNavigator = createSwitchNavigator(
+  {
+    Login: LoginScreen,
+    Chat: Chat,
+    DashboardScreen: DashboardScreen
   },
-});
+  {
+    headerMode: "none"
+  }
+);
+
+export default createAppContainer(AppNavigator)

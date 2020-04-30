@@ -1,57 +1,47 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Fire from '../Fire';
 
-export default class Chat extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { messages: [] };
-        this.onSend = this.onSend.bind(this);
+export default class Chat extends React.Component {
+    firstName = "";
+    state = {
+        messages: []
     }
-    componentWillMount() {
-        this.setState({
-            messages: [
-                {
-                    _id: 1,
-                    text: 'Hello 🦄',
-                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-                    user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
-                    },
-                },
-            ],
-        });
+    getNavigationParams() {
+        return this.props.navigation.params || {}
     }
 
-    onSend(messages = []) {
-        this.setState((previousState) => {
-            return {
-                messages: GiftedChat.append(previousState.messages, messages),
-            };
-        });
+    get user() {
+        return {
+            _id: Fire.uid,
+            name: this.getNavigationParams()
+        }
+    }
+
+    componentDidMount() {
+        Fire.get(message => this.setState(previous => ({
+            messages: GiftedChat.append(previous.messages, message)
+        }))
+        );
+    }
+
+    componentWillUnmount() {
+        Fire.off();
     }
 
     render() {
-        const { route, navigation } = this.props;
+        console.log(this.user)
+        const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user} />;
+        if (Platform.OS === 'android') {
+            return (
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={30} enabled>{chat}</KeyboardAvoidingView>
+            );
+        }
+
         return (
-            <GiftedChat
-                messages={this.state.messages}
-                onSend={this.onSend}
-                user={{
-                    _id: 1,
-                }}
-            />
+            <SafeAreaView style={{ flex: 1 }}>{chat}</SafeAreaView>
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});

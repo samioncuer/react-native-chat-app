@@ -29,22 +29,7 @@ class DashboardScreen extends Component {
         >
           <Stack.Screen
             options={{
-              headerRight: () => (
-                <Ionicons
-                  name="ios-search"
-                  size={38}
-                  style={{ margin: 5, padding: 5 }}
-                  onPress={() => alert("This is a button!")}
-                />
-              ),
-              headerLeft: () => (
-                <Ionicons
-                  name="ios-add"
-                  size={48}
-                  style={{ margin: 5, padding: 5 }}
-                  onPress={() => alert("This is a button!")}
-                />
-              ),
+
             }}
             name="                 "
             component={MyTabs}
@@ -89,6 +74,7 @@ function MyTabs() {
       <Tab.Screen name="Bildirimler" component={Bildirimler} />
       <Tab.Screen name="Inbox" component={Inbox} />
       <Tab.Screen name="Profil" component={Profil} />
+      <Tab.Screen name="Chat" component={Chat} />
     </Tab.Navigator>
   );
 }
