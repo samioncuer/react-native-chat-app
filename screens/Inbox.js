@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import firebase from 'firebase';
 const { width } = Dimensions.get('window')
 

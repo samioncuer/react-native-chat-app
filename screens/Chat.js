@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import React from 'react';
+import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import Fire from '../Fire';
 
 export default class Chat extends React.Component {

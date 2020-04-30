@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import Bildirimler from "./Bildirimler";
+import Bildirimler from "./Notifications";
 import Home from "./Home";
 import Profil from "./Profil";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -16,13 +15,14 @@ export default class DashboardScreen extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="🦄" component={TabsNavBar} />
-          <Stack.Screen name="Chat" component={ChatStackScreen} />
+          <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabsNavBar() {
@@ -55,15 +55,5 @@ function TabsNavBar() {
       <Tab.Screen name="Inbox" component={Inbox} />
       <Tab.Screen name="Profil" component={Profil} />
     </Tab.Navigator>
-  );
-}
-
-const Stack = createStackNavigator();
-
-function ChatStackScreen() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Chat" component={Chat} options={{ headerShown: false }} />
-    </Stack.Navigator>
   );
 }
