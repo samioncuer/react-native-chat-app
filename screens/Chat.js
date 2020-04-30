@@ -16,7 +16,7 @@ export default class Chat extends React.Component {
     get user() {
         return {
             _id: Fire.uid,
-            info: this.getNavigationParams()
+            name: this.getNavigationParams()
         }
     }
 
@@ -32,7 +32,6 @@ export default class Chat extends React.Component {
     }
 
     render() {
-        console.log(this.user.info.route.params)
         const chat = <GiftedChat messages={this.state.messages} onSend={Fire.send} user={this.user} />;
         if (Platform.OS === 'android') {
             return (
