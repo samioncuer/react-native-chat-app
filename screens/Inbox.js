@@ -8,7 +8,7 @@ export default class Inbox extends Component {
   constructor() {
     super();
   }
-  componentWillMount() {
+  componentDidMount() {
     firebase.database().ref().child('users').once('value', (snap) => {
       let userList = []
       snap.forEach((user) => {
@@ -25,11 +25,12 @@ export default class Inbox extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={{ alignItems: 'center', justifyContent: 'center', width: width - 40, paddingBottom: 10 }}>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 18 }}>Inbox</Text>
+          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 18, margin: 40 }}>Inbox</Text>
         </View>
         <FlatList
           data={users}
-          renderItem={({ item }) =>
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) =>
             <TouchableOpacity onPress={() => navigation.navigate('Chat', item)}>
               <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', padding: 5, width: width }}>
                 <Image style={{ height: 40, width: 40, borderRadius: 20 }}

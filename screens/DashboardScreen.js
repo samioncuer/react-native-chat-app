@@ -10,42 +10,22 @@ import { Ionicons } from "@expo/vector-icons";
 import Chat from "./Chat";
 import Inbox from "./Inbox";
 
-class DashboardScreen extends Component {
+export default class DashboardScreen extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            gestureEnabled: true,
-            gestureDirection: "horizontal",
-
-            // transitionSpec: {
-            // open: config,
-            // close: closeConfig
-            // }
-          }}
-          headerMode="float"
-          animmation="fade"
-        >
-          <Stack.Screen
-            options={{
-
-            }}
-            name="                 "
-            component={MyTabs}
-          />
-          <Stack.Screen name="Header" component={MyTabsTop} />
-          <Stack.Screen name="Chat" component={ChatNavigator} />
+        <Stack.Navigator>
+          <Stack.Screen name="🦄" component={TabsNavBar} />
+          <Stack.Screen name="Chat" component={ChatStackScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
 
-export default DashboardScreen;
-
 const Tab = createBottomTabNavigator();
-function MyTabs() {
+
+function TabsNavBar() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -74,37 +54,16 @@ function MyTabs() {
       <Tab.Screen name="Bildirimler" component={Bildirimler} />
       <Tab.Screen name="Inbox" component={Inbox} />
       <Tab.Screen name="Profil" component={Profil} />
-      <Tab.Screen name="Chat" component={Chat} />
     </Tab.Navigator>
   );
 }
 
 const Stack = createStackNavigator();
 
-function MyTabsTop() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Home"
-        component={Profil}
-        options={{ title: "My home" }}
-      />
-    </Tab.Navigator>
-  );
-}
-
-function ChatNavigator() {
+function ChatStackScreen() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen name="Chat" component={Chat} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

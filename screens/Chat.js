@@ -21,6 +21,11 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
+
+
+        console.log(this.props);
+
+
         Fire.get(message => this.setState(previous => ({
             messages: GiftedChat.append(previous.messages, message)
         }))
