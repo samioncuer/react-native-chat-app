@@ -5,7 +5,8 @@ import Fire from '../Fire';
 
 export default class Chat extends React.Component {
     state = {
-        messages: []
+        messages: [],
+        selectedUserId: ""
     }
 
     getNavigationParams() {
@@ -20,6 +21,10 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({
+            selectedUserId: this.user._id
+        });
+
         Fire.get(message => this.setState(previous => ({
             messages: GiftedChat.append(previous.messages, message)
         }))

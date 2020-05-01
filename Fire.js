@@ -3,7 +3,11 @@ import firebase from 'firebase'
 import React from 'react';
 
 class Fire extends React.Component {
-    selectedUser;
+    state = {
+        loggedUser: '',
+        selectedUserId: ""
+
+    }
 
     constructor(props) {
         if (!firebase.apps.length) {
@@ -17,9 +21,6 @@ class Fire extends React.Component {
         })
 
         super(props)
-        this.state = {
-            loggedUser: ''
-        }
     };
 
     signInWithAnonymously() {
@@ -35,7 +36,6 @@ class Fire extends React.Component {
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
                 user: item.user
             }
-            this.selectedUser = (message);
             this.db.push(message);
         });
     };
@@ -62,7 +62,8 @@ class Fire extends React.Component {
     }
 
     get db() {
-        return firebase.database().ref("messages/" + this.currentUser.uid);
+        // console.log("**********************FIRE.JS_DB_FONKSIYONU**********************:", this.props)
+        return firebase.database().ref("messages/" + this.currentUser.uid + "/" + this.state.selectedUser);
     }
 
     get uid() {

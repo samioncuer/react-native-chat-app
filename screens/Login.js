@@ -43,7 +43,7 @@ export default class LoginScreen extends Component {
         unsubscribe();
         // Check if we are already signed-in Firebase with the correct user.
         if (!this.isUserEqual(googleUser, firebaseUser)) {
-          console.log("checked")
+          // console.log("checked")
           // Build Firebase credential with the Google ID token.
           var credential = firebase.auth.GoogleAuthProvider.credential(
             googleUser.idToken,
@@ -75,7 +75,7 @@ export default class LoginScreen extends Component {
                 firebase
                   .database()
                   .ref('/users/' + result.user.uid).update({
-                    last_logged_in: Date.now()
+                    last_logged_in: Date.now(),
                   })
               }
             })
@@ -124,12 +124,11 @@ export default class LoginScreen extends Component {
         <View style={{ marginHorizontal: 32 }}>
           <Text style={styles.header}>Login</Text>
           <View style={styles.header}>
-            <Button title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()} />
+            <Button style={styles.signInWithGoogle} title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()} />
           </View>
           <Text style={styles.header}>or</Text>
-
-          <View style={{ alignItems: "flex-end", marginTop: 64 }}>
-            <Text >Sign In Anonymously</Text>
+          <View style={styles.header}>
+            <Text style={styles.signInWithAnonym}>Sign In Anonymously</Text>
             <TouchableOpacity style={styles.continue} onPress={this.continue}>
               <Ionicons name="md-arrow-round-forward" size={24} color="#fff" />
             </TouchableOpacity>
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 500 / 2,
     backgroundColor: '#FFF',
     position: "absolute",
-    left: -120,
+    left: -180,
     top: -20
   },
   header: {
@@ -177,6 +176,17 @@ const styles = StyleSheet.create({
     borderRadius: 70 / 2,
     backgroundColor: "#9075E3",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    left: 50
+  },
+  signInWithAnonym: {
+    height: 80,
+    fontWeight: "300",
+    color: "#514E5A",
+    paddingHorizontal: 16,
+  },
+  signInWithGoogle: {
+    textDecorationColor: "#514E5A",
+    fontWeight: "200",
   }
 });
