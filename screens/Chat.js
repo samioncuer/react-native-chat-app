@@ -14,7 +14,7 @@ export default class Chat extends React.Component {
 
     get user() {
         return {
-            _id: this.getNavigationParams().route.params.uid,
+            _id: Fire.uid,
             name: this.getNavigationParams().route.params
         }
     }

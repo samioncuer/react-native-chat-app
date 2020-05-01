@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 import Chat from "./Chat";
 import Inbox from "./Inbox";
+import Fire from '../Fire';
 
 export default class DashboardScreen extends Component {
 

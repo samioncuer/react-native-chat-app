@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import firebase from 'firebase';
+import Fire from '../Fire';
 const { width } = Dimensions.get('window')
 
 var users;

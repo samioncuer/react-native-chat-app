@@ -1,23 +1,31 @@
 import { firebaseConfig } from './config';
 import firebase from 'firebase'
+import React from 'react';
 
-class Fire {
-    constructor() {
-        this.init()
-        // this.checkAuth()
-    }
-    init = () => {
+class Fire extends React.Component {
+    selectedUser;
+
+    constructor(props) {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-    }
 
-    checkAuth = () => {
         firebase.auth().onAuthStateChanged(user => {
             if (!user) {
                 firebase.auth().signInAnonymously();
             }
         })
+
+        super(props)
+        this.state = {
+            loggedUser: ''
+        }
+    };
+
+    signInWithAnonymously() {
+        firebase.auth().signInAnonymously().then(q => {
+            this.setState(q)
+        });
     }
 
     send = messages => {
@@ -27,19 +35,20 @@ class Fire {
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
                 user: item.user
             }
+            this.selectedUser = (message);
             this.db.push(message);
         });
     };
 
     parse = message => {
         const { user, text, timestamp } = message.val();
-        const { key: _id } = message;
+        const { key: _id } = message
         const createdAt = new Date(timestamp);
 
         return {
             _id,
-            createdAt,
             text,
+            createdAt,
             user
         };
     };
@@ -53,7 +62,7 @@ class Fire {
     }
 
     get db() {
-        return firebase.database().ref("messages/" + this.uid);
+        return firebase.database().ref("messages/" + this.currentUser.uid);
     }
 
     get uid() {

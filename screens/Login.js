@@ -7,19 +7,34 @@ import { Ionicons } from '@expo/vector-icons'
 import Fire from '../Fire';
 
 export default class LoginScreen extends Component {
-  state = {
-    name: ""
-  }
+
   constructor() {
     super();
     Fire.logout(); //Herhangi bir hatada Login ekranına attığı zaman, user kayıtlı kalmasın diye logout yapıyoruz.
   }
 
   continue = () => {
-    this.props.navigation.navigate('DashboardScreen', this.state)
+    Fire.signInWithAnonymously();
+    this.props.navigation.navigate('DashboardScreen')
+  }
+
+  isUserEqual = (googleUser, firebaseUser) => {
+    if (firebaseUser) {
+      var providerData = firebaseUser.providerData;
+      for (var i = 0; i < providerData.length; i++) {
+        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+          providerData[i].uid === googleUser.getBasicProfile().getId()) {
+          // We don't need to reauth the Firebase connection.
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   onSignIn = (googleUser) => {
+    // console.log(googleUser)
+
     // console.log('Google Auth Response', googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase
@@ -28,6 +43,7 @@ export default class LoginScreen extends Component {
         unsubscribe();
         // Check if we are already signed-in Firebase with the correct user.
         if (!this.isUserEqual(googleUser, firebaseUser)) {
+          console.log("checked")
           // Build Firebase credential with the Google ID token.
           var credential = firebase.auth.GoogleAuthProvider.credential(
             googleUser.idToken,
@@ -111,15 +127,9 @@ export default class LoginScreen extends Component {
             <Button title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()} />
           </View>
           <Text style={styles.header}>or</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Anonymously name"
-            onChangeText={name => {
-              this.setState({ name });
-            }}
-            value={this.state.name}
-          />
+
           <View style={{ alignItems: "flex-end", marginTop: 64 }}>
+            <Text >Sign In Anonymously</Text>
             <TouchableOpacity style={styles.continue} onPress={this.continue}>
               <Ionicons name="md-arrow-round-forward" size={24} color="#fff" />
             </TouchableOpacity>
