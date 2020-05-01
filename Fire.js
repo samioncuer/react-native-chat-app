@@ -5,9 +5,9 @@ import React from 'react';
 class Fire extends React.Component {
     state = {
         loggedUser: '',
-        selectedUserId: ""
-
     }
+    selectedUserId;
+
 
     constructor(props) {
         if (!firebase.apps.length) {
@@ -44,7 +44,7 @@ class Fire extends React.Component {
         const { user, text, timestamp } = message.val();
         const { key: _id } = message
         const createdAt = new Date(timestamp);
-
+        this.selectedUserId = message.val().user.name.uid
         return {
             _id,
             text,
@@ -63,7 +63,7 @@ class Fire extends React.Component {
 
     get db() {
         // console.log("**********************FIRE.JS_DB_FONKSIYONU**********************:", this.props)
-        return firebase.database().ref("messages/" + this.currentUser.uid + "/" + this.state.selectedUser);
+        return firebase.database().ref("messages/" + this.currentUser.uid + "/" + this.selectedUserId);
     }
 
     get uid() {
