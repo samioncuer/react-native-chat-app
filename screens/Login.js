@@ -10,11 +10,10 @@ export default class LoginScreen extends Component {
 
   constructor() {
     super();
-    Fire.logout(); //Herhangi bir hatada Login ekranına attığı zaman, user kayıtlı kalmasın diye logout yapıyoruz.
   }
 
   continue = () => {
-    Fire.signInWithAnonymously();
+    Fire.loginWithAnonymously();
     this.props.navigation.navigate('DashboardScreen')
   }
 

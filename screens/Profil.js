@@ -8,10 +8,6 @@ import Fire from '../Fire';
 
 class Profil extends Component {
 
-    logout = () => {
-        return Fire.logout();
-    }
-
     render() {
         return (
             <ScrollView>
@@ -71,7 +67,7 @@ class Profil extends Component {
                         height: 45, width: 300, backgroundColor: '#DD2C00', borderRadius: 10,
                         marginTop: 3, paddingTop: 9
                     }}>
-                        <Button title="Çıkış Yap" onPress={() => this.logout} />
+                        <Button title="Çıkış Yap" onPress={() => alert("test")} />
 
                     </View>
                 </View>

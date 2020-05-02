@@ -2,32 +2,41 @@ import { firebaseConfig } from './config';
 import firebase from 'firebase'
 import React from 'react';
 
-class Fire extends React.Component {
+class Fire {
     state = {
         loggedUser: '',
     }
     selectedUserId;
 
 
-    constructor(props) {
+    constructor() {
+        this.init();
+        this.observeAuth();
+    };
+
+    init = () => {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-
-        firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
-                firebase.auth().signInAnonymously();
-            }
-        })
-
-        super(props)
     };
 
-    signInWithAnonymously() {
-        firebase.auth().signInAnonymously().then(q => {
-            this.setState(q)
-        });
+    observeAuth = () =>
+        firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
+
+    onAuthStateChanged = user => {
+        if (!user) {
+            try {
+                firebase.auth().signInAnonymously();
+            } catch ({ message }) {
+                alert(message);
+            }
+        }
+    };
+
+    loginWithAnonymously() {
+        firebase.auth().signInAnonymously();
     }
+
 
     send = messages => {
         messages.forEach(item => {
@@ -41,10 +50,13 @@ class Fire extends React.Component {
     };
 
     parse = message => {
-        const { user, text, timestamp } = message.val();
-        const { key: _id } = message
+        const { text, timestamp } = message.val();
+        const { key: _id } = message;
         const createdAt = new Date(timestamp);
+        const user = message.val().user
+
         this.selectedUserId = message.val().user.name.uid
+
         return {
             _id,
             text,
@@ -53,17 +65,20 @@ class Fire extends React.Component {
         };
     };
 
-    get = callback => {
-        this.db.on('child_added', snapshot => callback(this.parse(snapshot)));
+    get(callback, selectedUserUid) {
+        this.selectedUserId = selectedUserUid;
+        this.db
+            .limitToLast(20)
+            .on('child_added', snapshot => callback(this.parse(snapshot)));
     }
+
 
     off() {
         this.db.off();
     }
 
     get db() {
-        // console.log("**********************FIRE.JS_DB_FONKSIYONU**********************:", this.props)
-        return firebase.database().ref("messages/" + this.currentUser.uid + "/" + this.selectedUserId);
+        return firebase.database().ref("messages").child(this.uid).child(this.selectedUserId);
     }
 
     get uid() {
