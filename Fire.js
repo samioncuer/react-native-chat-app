@@ -55,8 +55,6 @@ class Fire {
         const createdAt = new Date(timestamp);
         const user = message.val().user
 
-        this.selectedUserId = message.val().user.name.uid
-
         return {
             _id,
             text,
@@ -78,7 +76,7 @@ class Fire {
     }
 
     get db() {
-        return firebase.database().ref("messages").child(this.uid).child(this.selectedUserId);
+        return firebase.database().ref('messages');
     }
 
     get uid() {

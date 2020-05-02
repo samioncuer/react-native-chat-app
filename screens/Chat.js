@@ -3,11 +3,14 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import Fire from '../Fire';
 
 export default class Chat extends React.Component {
+
     state = {
         messages: [],
     }
 
     get user() {
+        console.log("user")
+
         return {
             _id: Fire.uid,
             name: this.props.route.params
@@ -15,6 +18,7 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
+
         Fire.get(message =>
             this.setState(previousState => ({
                 messages: GiftedChat.append(previousState.messages, message),

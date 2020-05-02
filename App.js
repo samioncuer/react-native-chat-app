@@ -7,7 +7,6 @@ import Chat from './screens/Chat';
 const AppNavigator = createSwitchNavigator(
   {
     Login: LoginScreen,
-    Chat: Chat,
     DashboardScreen: DashboardScreen
   },
   {
