@@ -76,7 +76,7 @@ class Fire {
     }
 
     get db() {
-        return firebase.database().ref('messages');
+        return firebase.database().ref('messages/' + this.uid + "/" + this.selectedUserId);
     }
 
     get uid() {
