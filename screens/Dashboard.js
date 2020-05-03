@@ -8,7 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 import Chat from "./Chat";
 import Inbox from "./Inbox";
-import Fire from '../Fire';
+import Rooms from "./Rooms";
 
 export default class DashboardScreen extends Component {
 
@@ -33,16 +33,18 @@ function TabsNavBar() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-
           if (route.name === "Home") {
             iconName = "ios-home";
-          } else if (route.name === "Bildirimler") {
+          } else if (route.name === "Notifications") {
             iconName = "ios-notifications";
           } else if (route.name === "Inbox") {
-            iconName = "ios-chatboxes";
-          } else if (route.name === "Profil") {
+            iconName = "ios-chatbubbles";
+          } else if (route.name === "Profile") {
             iconName = "ios-contact";
+          } else if (route.name === "Rooms") {
+            iconName = "md-apps";
           }
+          // https://expo.github.io/vector-icons/
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -53,9 +55,10 @@ function TabsNavBar() {
       }}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Bildirimler" component={Bildirimler} />
+      <Tab.Screen name="Notifications" component={Bildirimler} />
       <Tab.Screen name="Inbox" component={Inbox} />
-      <Tab.Screen name="Profil" component={Profil} />
+      <Tab.Screen name="Rooms" component={Rooms} />
+      <Tab.Screen name="Profile" component={Profil} />
     </Tab.Navigator>
   );
 }
