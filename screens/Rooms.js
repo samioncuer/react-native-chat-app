@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, StyleSheet, TouchableHighlight, View, Alert, AppRegistry, Text, TextInput, FlatList, Image, TouchableOpacity, Dimensions, Button } from 'react-native';
+import { Modal, StyleSheet, TouchableHighlight, View, Alert, Text, TextInput, FlatList, TouchableOpacity, Dimensions, Button } from 'react-native';
 import firebase from 'firebase';
+import { nanoid } from 'nanoid/non-secure'
 
 const { width } = Dimensions.get('window')
 
@@ -19,36 +20,27 @@ class Rooms extends React.Component {
     }
 
     componentDidMount() {
-        firebase.database().ref().child('rooms').once('value', (snap) => {
-            let roomList = []
-            snap.forEach((room) => {
-                const { created_date, name } = room.val()
-                roomList.push({ created_date, name })
-            })
-            room = (roomList);
-            this.setState({ roomList })
-        })
-    }
 
-    saveRoomToFirebase(roomName) {
-        firebase.database().ref('rooms/' + roomName).set({
-            name: roomName,
-            created_date: Date.now()
-        })
-    }
-
-    getValue() {
-        console.log("uni:", this.state.uniName)
-        console.log("departman:", this.state.departmanName)
-        console.log("class:", this.state.className)
     }
 
     saveDatastoFirebase() {
-        firebase.database().ref('universities/' + this.state.uniName + "/" + this.state.departmanName + "/" + this.state.className).set({
-            id: 123,
-            name: this.state.className,
-            created_date: Date.now()
-        })
+        firebase.database().ref('universities').child(this.state.uni._id).set({
+            _id: this.state.uni._id,
+            uni_name: this.state.uni._name,
+            created_date: this.state.uni._created_date
+        }).then(
+            firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).set({
+                _id: this.state.department._id,
+                department_name: this.state.department._name,
+                created_date: this.state.department._created_date
+            }).then(
+                firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
+                    _id: this.state.class._id,
+                    department_name: this.state.class._name,
+                    created_date: this.state.class._created_date
+                })
+            )
+        );
     }
 
     render() {
@@ -72,19 +64,19 @@ class Rooms extends React.Component {
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
                                     placeholder="University Name"
-                                    onChangeText={(uniName) => this.setState({ uniName: uniName })}
+                                    onChangeText={(uniName) => this.setState({ uni: { _name: uniName, _id: nanoid(), _created_date: Date.now() } })}
                                     onContentSizeChange='false'
                                 />
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5, padding: 5 }}
                                     placeholder="Departman Name"
-                                    onChangeText={(departmanName) => this.setState({ departmanName: departmanName })}
+                                    onChangeText={(departmentName) => this.setState({ department: { _name: departmentName, _id: nanoid(), _created_date: Date.now() } })}
 
                                 />
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
                                     placeholder="Class Name"
-                                    onChangeText={(className) => this.setState({ className: className })}
+                                    onChangeText={(className) => this.setState({ class: { _name: className, _id: nanoid(), _created_date: Date.now() } })}
                                 />
                                 <TouchableHighlight
                                     style={{ ...styles.openButton, marginTop: 25 }}
