@@ -13,7 +13,6 @@ export default class Inbox extends Component {
     firebase.database().ref().child('users').once('value', (snap) => {
       let userList = []
       snap.forEach((user) => {
-        console.log(user)
         const { first_name, profile_picture, uid } = user.val()
         userList.push({ first_name, profile_picture, uid })
       })

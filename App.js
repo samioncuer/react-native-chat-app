@@ -8,9 +8,6 @@ const AppNavigator = createSwitchNavigator(
   {
     Login: LoginScreen,
     DashboardScreen: DashboardScreen
-  },
-  {
-    headerMode: "none"
   }
 );
 

@@ -75,8 +75,17 @@ class Fire {
         this.db.off();
     }
 
+    setOneToOneChat(uid1, uid2) {
+        if (uid1 < uid2) {
+            return uid1 + uid2;
+        }
+        else {
+            return uid2 + uid1;
+        }
+    }
+
     get db() {
-        return firebase.database().ref('messages');
+        return firebase.database().ref('messages/' + this.setOneToOneChat(this.uid, this.selectedUserId));
     }
 
     get uid() {
