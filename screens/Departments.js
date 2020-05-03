@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, SafeAreaView, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
 import firebase from 'firebase';
-import Fire from '../Fire';
 const { width } = Dimensions.get('window');
 
 var departments;
 export default class Departments extends Component {
 
     componentDidMount() {
-        console.log(this.props.route.params._id);
         firebase.database().ref('universities').child(this.props.route.params._id).child('departments').once('value', (snap) => {
             let departmentList = []
             snap.forEach((department) => {
