@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Alert, AppRegistry, Text, TextInput, FlatList, Image, TouchableOpacity, Dimensions, Button } from 'react-native';
+import { Modal, StyleSheet, TouchableHighlight, View, Alert, Text, TextInput, FlatList, TouchableOpacity, Dimensions, Button } from 'react-native';
 import firebase from 'firebase';
+import { nanoid } from 'nanoid/non-secure'
 
 const { width } = Dimensions.get('window')
 
@@ -10,51 +11,94 @@ class Rooms extends React.Component {
     constructor() {
         super();
     }
-
-    componentDidMount() {
-        firebase.database().ref().child('rooms').once('value', (snap) => {
-            let roomList = []
-            snap.forEach((room) => {
-                const { created_date, name } = room.val()
-                roomList.push({ created_date, name })
-            })
-            room = (roomList);
-            this.setState({ roomList })
-        })
-    }
-
-    onButtonPress = () => {
-        Alert.prompt(
-            "Add Room",
-            "Room Name",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                {
-                    text: "Add",
-                    onPress: roomName => this.saveRoomToFirebase(roomName)
-                }
-            ],
-            "plain-text"
-        );
+    state = {
+        modalVisible: false,
     };
 
-    saveRoomToFirebase(roomName) {
-        firebase.database().ref('rooms/' + roomName).set({
-            name: roomName,
-            created_date: Date.now()
-        })
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
     }
 
+    componentDidMount() {
+
+    }
+
+    saveDatastoFirebase() {
+        firebase.database().ref('universities').child(this.state.uni._id).set({
+            _id: this.state.uni._id,
+            uni_name: this.state.uni._name,
+            created_date: this.state.uni._created_date
+        }).then(
+            firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).set({
+                _id: this.state.department._id,
+                department_name: this.state.department._name,
+                created_date: this.state.department._created_date
+            }).then(
+                firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
+                    _id: this.state.class._id,
+                    department_name: this.state.class._name,
+                    created_date: this.state.class._created_date
+                })
+            )
+        );
+    }
 
     render() {
         const { navigation } = this.props;
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Button style={{ justifyContent: 'right', left: 200 }} title="+" onPress={() => this.onButtonPress()} />
+                <View style={styles.centeredView}>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <View style={styles.closeButton}>
+                                    <Button title="x" onPress={() => this.setModalVisible(!this.state.modalVisible)} />
+                                </View>
+                                <TextInput
+                                    style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
+                                    placeholder="University Name"
+                                    onChangeText={(uniName) => this.setState({ uni: { _name: uniName, _id: nanoid(), _created_date: Date.now() } })}
+                                    onContentSizeChange='false'
+                                />
+                                <TextInput
+                                    style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5, padding: 5 }}
+                                    placeholder="Departman Name"
+                                    onChangeText={(departmentName) => this.setState({ department: { _name: departmentName, _id: nanoid(), _created_date: Date.now() } })}
+
+                                />
+                                <TextInput
+                                    style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
+                                    placeholder="Class Name"
+                                    onChangeText={(className) => this.setState({ class: { _name: className, _id: nanoid(), _created_date: Date.now() } })}
+                                />
+                                <TouchableHighlight
+                                    style={{ ...styles.openButton, marginTop: 25 }}
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible); this.saveDatastoFirebase()
+                                    }}>
+                                    <Text style={{ ...styles.textStyle }}>Add</Text>
+
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    <TouchableHighlight
+                        style={styles.openButton}
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}
+                    >
+                        <Text style={styles.textStyle}>Add University</Text>
+                    </TouchableHighlight>
+                </View>
                 <View style={{ alignItems: 'center', justifyContent: 'center', width: width - 40, paddingBottom: 10 }}>
                     <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 18, margin: 40 }}>Rooms</Text>
                 </View>
@@ -72,10 +116,52 @@ class Rooms extends React.Component {
                             </View>
                         </TouchableOpacity>
                     } />
-
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 25
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 55,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    openButton: {
+        backgroundColor: "#ffc29e",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    closeButton: {
+        left: width / 6,
+        top: -20,
+        position: 'relative',
+    }
+});
 
 export default Rooms;

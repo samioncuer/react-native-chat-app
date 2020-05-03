@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View, Text, Dimensions, Button } from 'react-native';
+const { width } = Dimensions.get('window')
 import { NavigationContainer } from "@react-navigation/native";
 import Bildirimler from './Notifications';
 import Home from './Home';
@@ -19,7 +21,13 @@ export default class DashboardScreen extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="🦄" component={TabsNavBar} />
+          <Stack.Screen name="🦄" component={TabsNavBar} options={{
+            headerRight: () => (
+              <View style={{ marginRight: 18 }}>
+                <Button title="+" onPress={() => alert("test")} />
+              </View>
+            )
+          }} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="Departments" component={Departments} />
           <Stack.Screen name="Lessons" component={Lessons} />
