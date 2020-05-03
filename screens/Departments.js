@@ -19,7 +19,6 @@ export default class Departments extends Component {
     }
     render() {
         const { navigation } = this.props;
-
         return (
             <SafeAreaView style={styles.container}>
                 <FlatList
@@ -28,7 +27,16 @@ export default class Departments extends Component {
                     renderItem={({ item, index }) =>
                         <TouchableOpacity onPress={() => navigation.navigate('Lessons')}>
                             <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', padding: 5, width: width }}>
-                                <Image source={'https://placeimg.com/140/140/any'} />
+                                <Image
+                                    style={{
+                                        margin: 5,
+                                        height: 40,
+                                        width: 40,
+                                        borderRadius: 20
+                                    }}
+                                    source={{ uri: 'https://placeimg.com/140/140/any' }}
+                                    resizeMode="stretch"
+                                />
                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                     <Text style={{ color: 'grey', fontWeight: 'bold', padding: 15 }}> {item.department_name} </Text>
                                 </View>
