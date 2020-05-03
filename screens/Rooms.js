@@ -65,13 +65,11 @@ class Rooms extends React.Component {
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
                                     placeholder="University Name"
                                     onChangeText={(uniName) => this.setState({ uni: { _name: uniName, _id: nanoid(), _created_date: Date.now() } })}
-                                    onContentSizeChange='false'
                                 />
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5, padding: 5 }}
                                     placeholder="Departman Name"
                                     onChangeText={(departmentName) => this.setState({ department: { _name: departmentName, _id: nanoid(), _created_date: Date.now() } })}
-
                                 />
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
