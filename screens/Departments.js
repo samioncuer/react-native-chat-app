@@ -11,8 +11,8 @@ export default class Departments extends Component {
         firebase.database().ref('universities').child(this.props.route.params._id).child('departments').once('value', (snap) => {
             let departmentList = []
             snap.forEach((department) => {
-                const { department_name, _id } = department.val()
-                departmentList.push({ department_name, _id })
+                const { department_name, _id, uni_id } = department.val()
+                departmentList.push({ department_name, _id, uni_id })
             })
             departments = (departmentList);
         })
@@ -25,7 +25,7 @@ export default class Departments extends Component {
                     data={departments}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) =>
-                        <TouchableOpacity onPress={() => navigation.navigate('Lessons')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Lessons', item)}>
                             <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', padding: 5, width: width }}>
                                 <Image
                                     style={{

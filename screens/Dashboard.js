@@ -11,7 +11,6 @@ import { Ionicons } from "@expo/vector-icons";
 import Chat from './Chat';
 import Inbox from './Inbox';
 import Rooms from './Rooms';
-import University from './University';
 import Departments from './Departments';
 import Lessons from './Lessons';
 
@@ -72,7 +71,6 @@ function TabsNavBar() {
       <Tab.Screen name="Inbox" component={Inbox} />
       <Tab.Screen name="Rooms" component={Rooms} />
       <Tab.Screen name="Profile" component={Profil} />
-      <Tab.Screen name="University" component={University} />
     </Tab.Navigator>
   );
 }

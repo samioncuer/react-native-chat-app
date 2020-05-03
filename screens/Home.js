@@ -28,21 +28,7 @@ export default class Home extends Component {
 
   render() {
 
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        marginTop: Constants.statusBarHeight,
-      },
-      item: {
-        backgroundColor: '#f9c2ff',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-      },
-      title: {
-        fontSize: 32,
-      },
-    });
+   
     const { navigation } = this.props;
     return (
       <SafeAreaView style={styles.container}>
@@ -73,3 +59,18 @@ export default class Home extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      marginTop: Constants.statusBarHeight,
+    },
+    item: {
+      backgroundColor: '#f9c2ff',
+      padding: 20,
+      marginVertical: 8,
+      marginHorizontal: 16,
+    },
+    title: {
+      fontSize: 32,
+    },
+  });
