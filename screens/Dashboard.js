@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import Bildirimler from "./Notifications";
-import Home from "./Home";
-import Profil from "./Profil";
+import Bildirimler from './Notifications';
+import Home from './Home';
+import Profil from './Profil';
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
-import Chat from "./Chat";
-import Inbox from "./Inbox";
-import Rooms from "./Rooms";
+import Chat from './Chat';
+import Inbox from './Inbox';
+import Rooms from './Rooms';
+import University from './University';
+import Departments from './Departments';
+import Lessons from './Lessons';
 
 export default class DashboardScreen extends Component {
 
@@ -18,6 +21,8 @@ export default class DashboardScreen extends Component {
         <Stack.Navigator>
           <Stack.Screen name="🦄" component={TabsNavBar} />
           <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Departments" component={Departments} />
+          <Stack.Screen name="Lessons" component={Lessons} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -59,6 +64,7 @@ function TabsNavBar() {
       <Tab.Screen name="Inbox" component={Inbox} />
       <Tab.Screen name="Rooms" component={Rooms} />
       <Tab.Screen name="Profile" component={Profil} />
+      <Tab.Screen name="University" component={University} />
     </Tab.Navigator>
   );
 }
