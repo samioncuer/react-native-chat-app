@@ -22,7 +22,6 @@ export default class Lessons extends Component {
                 classList.push({ class_name, _id })
             })
             classes = (classList);
-            console.log(snap)
         })
     }
     render() {
