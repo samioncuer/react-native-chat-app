@@ -36,7 +36,7 @@ class Rooms extends React.Component {
             }).then(
                 firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
                     _id: this.state.class._id,
-                    department_name: this.state.class._name,
+                    class_name: this.state.class._name,
                     created_date: this.state.class._created_date
                 })
             )
