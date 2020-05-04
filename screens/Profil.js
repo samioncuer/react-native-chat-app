@@ -30,7 +30,7 @@ export default class Profil extends Component {
 
 function logOut(navigation) {
     Fire.logout();
-    navigation.navigate('Login', null);
+    navigation.navigate('Login');
 }
 
 const styles = StyleSheet.create({
