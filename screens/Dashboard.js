@@ -23,12 +23,7 @@ export default class DashboardScreen extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Dashboard" component={TabsNavBar} options={{
-            title: " 🦄",
-            headerRight: () => (
-              <View style={{ marginRight: 18 }}>
-                <Button title="+" onPress={() => alert("test")} />
-              </View>
-            )
+            title: " 🦄"
           }} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="LessonChat" component={LessonChat} />
@@ -72,9 +67,9 @@ function TabsNavBar() {
       }}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Notifications" component={Bildirimler} />
+      {/* <Tab.Screen name="Notifications" component={Bildirimler} /> */}
       <Tab.Screen name="Inbox" component={Inbox} />
-      <Tab.Screen name="Rooms" component={Rooms} />
+      {/* <Tab.Screen name="Rooms" component={Rooms} /> */}
       <Tab.Screen name="Profile" component={Profil} />
     </Tab.Navigator>
   );
