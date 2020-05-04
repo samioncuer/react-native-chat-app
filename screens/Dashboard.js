@@ -14,6 +14,7 @@ import Rooms from './Rooms';
 import Lessons from './Lessons';
 import Departments from './Departments';
 import Login from './Login';
+import LessonChat from "./LessonChat";
 
 export default class DashboardScreen extends Component {
 
@@ -30,6 +31,7 @@ export default class DashboardScreen extends Component {
             )
           }} />
           <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="LessonChat" component={LessonChat} />
           <Stack.Screen name="Departments" component={Departments} />
           <Stack.Screen name="Lessons" component={Lessons} />
           <Stack.Screen name="Login" component={Login} />

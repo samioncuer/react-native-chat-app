@@ -7,6 +7,11 @@ class Fire {
         loggedUser: '',
     }
     selectedUserId;
+    lessonsChatRoom = {
+        uniId: "",
+        departmentId: "",
+        classId: ""
+    }
 
 
     constructor() {
@@ -36,7 +41,6 @@ class Fire {
     loginWithAnonymously() {
         firebase.auth().signInAnonymously();
     }
-
 
     send = messages => {
         messages.forEach(item => {
@@ -69,6 +73,34 @@ class Fire {
             .limitToLast(20)
             .on('child_added', snapshot => callback(this.parse(snapshot)));
     }
+
+    getLessonChatDbSnap(callback, val) {
+        this.lessonsChatRoom.uniId = val.uni_id;
+        this.lessonsChatRoom.departmentId = val.department_id;
+        this.lessonsChatRoom.classId = val._id;
+
+        this.LessonDb
+            .limitToLast(20)
+            .on('child_added', snapshot => callback(this.parse(snapshot)));
+    }
+
+    get LessonDb() {
+        return firebase.database().ref('lessons-chat-rooms')
+            .child(this.lessonsChatRoom.uniId)
+            .child(this.lessonsChatRoom.departmentId)
+            .child(this.lessonsChatRoom.classId)
+    }
+
+    sendRoom = messages => {
+        messages.forEach(item => {
+            const message = {
+                text: item.text,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                user: item.user
+            }
+            this.LessonDb.push(message);
+        });
+    };
 
 
     off() {
