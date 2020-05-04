@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, SafeAreaView, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
 import firebase from 'firebase';
-import Fire from '../Fire';
-import Departments from './Departments';
 const { width } = Dimensions.get('window');
 
 var universities;
@@ -27,12 +23,9 @@ export default class Home extends Component {
 
 
   render() {
-
-   
     const { navigation } = this.props;
     return (
       <SafeAreaView style={styles.container}>
-
         <FlatList
           data={universities}
           keyExtractor={(item, index) => index.toString()}
