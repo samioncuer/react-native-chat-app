@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Chat from './Chat';
 import Inbox from './Inbox';
 import Rooms from './Rooms';
+import Lessons from './Lessons';
 import Departments from './Departments';
 import Login from './Login';
 
@@ -30,6 +31,7 @@ export default class DashboardScreen extends Component {
           }} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="Departments" component={Departments} />
+          <Stack.Screen name="Lessons" component={Lessons} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
