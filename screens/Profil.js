@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, Text, StyleSheet, ActivityIndicator, ImageBackground, Image } from 'react-native';
+import { View, Button, Text, StyleSheet, ImageBackground, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import firebase from 'firebase';
-import Fire from '../Fire';
 
 
 
