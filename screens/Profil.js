@@ -1,82 +1,39 @@
 import React, { Component } from 'react';
-import { View, Button, Text, StyleSheet, ActivityIndicator, ImageBackground, Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
 import firebase from 'firebase';
 import Fire from '../Fire';
 
-
-
-class Profil extends Component {
-
+export default class Profil extends Component {
+   
     render() {
+        console.log(Fire.currentUser);
+        const dfUri = 'https://i.picsum.photos/id/992/200/300.jpg';
+        const anonim = "anonim";
+        const {navigation} = this.props;
         return (
-            <ScrollView>
-                <ImageBackground
-                    source={require("../assets/images/background.jpg")}
-                    style={{ width: undefined, height: 240, padding: 88, paddingTop: 24 }} >
-                    <Image source={require("../assets/images/clement.jpg")} style={styles.profile} />
-                    <Text style={styles.name}>Clement Mathieu</Text>
-                </ImageBackground>
-                <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: 1
-                    }}>
-                    <View style={{
-                        height: 45, width: 300, backgroundColor: '#FFCCBC', borderRadius: 10,
-                        marginTop: 3, paddingTop: 9
-                    }}>
-                        <Text style={styles.baseText}> Arkadaşlar(232)</Text>
-                    </View>
-                    <View style={{
-                        height: 45, width: 300, backgroundColor: '#FFAB91', borderRadius: 10,
-                        marginTop: 3, paddingTop: 9
-                    }}>
-                        <Text style={styles.baseText} > Yaşadığı yer:
-        <Text style={styles.infoText} >Yaşadığı yer </Text>
-                        </Text>
-                    </View>
-                    <View style={{
-                        height: 45, width: 300, backgroundColor: '#FF8A65', borderRadius: 10,
-                        marginTop: 3, paddingTop: 9
-                    }}>
-                        <Text style={styles.baseText} >Doğum tarihii:
-        <Text style={styles.infoText} >Doğum tarihi </Text>
-                        </Text>
-                    </View>
-                    <View style={{
-                        height: 45, width: 300, backgroundColor: '#FF7043', borderRadius: 10,
-                        marginTop: 3, paddingTop: 9
-                    }}>
-                        <Text style={styles.baseText} >Diller:
-        <Text style={styles.infoText} >Diller </Text>
-                        </Text>
-                    </View>
-                    <View style={{
-                        height: 45, width: 300, backgroundColor: '#FF5722', borderRadius: 10,
-                        marginTop: 3, paddingTop: 9
-                    }}>
-                        <Text style={styles.baseText} >Hobiler:
-        <Text style={styles.infoText} >Hobiler </Text>
-                        </Text>
-                    </View>
-                    <View style={{
-                        height: 45, width: 300, backgroundColor: '#DD2C00', borderRadius: 10,
-                        marginTop: 3, paddingTop: 9
-                    }}>
-                        <Button title="Çıkış Yap" onPress={() => alert("test")} />
+            <ImageBackground
+                style={styles.brImage}
+                source={{ uri: 'https://i.picsum.photos/id/992/200/300.jpg' }} >
 
-                    </View>
-                </View>
-            </ScrollView>
-        )
+                <Image style={styles.ppImage}
+                    source={{ uri: Fire.currentUser.photoURL != null ? Fire.currentUser.photoURL : dfUri }} />
+                <Text style={styles.nameText}> { Fire.currentUser.displayName != null ? Fire.currentUser.displayName : anonim }   </Text>
+                <TouchableOpacity style={styles.continue} onPress={() => logOut(navigation) } >
+                    <Ionicons name="md-log-out" size={48} color="#fff" />
+                </TouchableOpacity>
+
+            </ImageBackground>
+        );
     }
 }
 
-export default Profil;
+function logOut( navigation ){
+    
+    Fire.logout();
+    navigation.navigate('LoginScreen');
+    
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -84,14 +41,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    profile: {
-        width: 180,
-        height: 180,
-        borderRadius: 90,
-        borderWidth: 3,
-        borderColor: "#FFF"
-    },
-    name: {
+    nameText: {
         color: "#FFF",
         fontSize: 20,
         fontWeight: "800",
@@ -105,11 +55,28 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#3E2723"
     },
-    infoText: {
-        color: "#FFF",
-        fontSize: 16,
-        fontWeight: "800",
-        marginVertical: 8,
-        textAlign: "center"
-    }
+    brImage: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    ppImage: {
+        width: 180,
+        height: 180,
+        borderRadius: 90,
+        borderWidth: 1,
+        marginTop: 80,
+        borderColor: "#FFF"
+    },
+    btnLogout: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        borderWidth: 1,
+        marginBottom: 20,
+        borderColor: "#FFF"
+    },
+    continue: {
+        marginTop: 120,
+
+    },
 });
