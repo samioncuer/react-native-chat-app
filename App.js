@@ -6,7 +6,7 @@ import 'react-native-gesture-handler';
 const AppNavigator = createSwitchNavigator(
   {
     Login: LoginScreen,
-    DashboardScreen: DashboardScreen
+    Dashboard: DashboardScreen
   }
 );
 

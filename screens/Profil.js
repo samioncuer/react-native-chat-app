@@ -5,12 +5,12 @@ import firebase from 'firebase';
 import Fire from '../Fire';
 
 export default class Profil extends Component {
-   
+
     render() {
         console.log(Fire.currentUser);
         const dfUri = 'https://i.picsum.photos/id/992/200/300.jpg';
         const anonim = "anonim";
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         return (
             <ImageBackground
                 style={styles.brImage}
@@ -18,8 +18,8 @@ export default class Profil extends Component {
 
                 <Image style={styles.ppImage}
                     source={{ uri: Fire.currentUser.photoURL != null ? Fire.currentUser.photoURL : dfUri }} />
-                <Text style={styles.nameText}> { Fire.currentUser.displayName != null ? Fire.currentUser.displayName : anonim }   </Text>
-                <TouchableOpacity style={styles.continue} onPress={() => logOut(navigation) } >
+                <Text style={styles.nameText}> {Fire.currentUser.displayName != null ? Fire.currentUser.displayName : anonim}   </Text>
+                <TouchableOpacity style={styles.continue} onPress={() => logOut(navigation)} >
                     <Ionicons name="md-log-out" size={48} color="#fff" />
                 </TouchableOpacity>
 
@@ -28,11 +28,9 @@ export default class Profil extends Component {
     }
 }
 
-function logOut( navigation ){
-    
+function logOut(navigation) {
     Fire.logout();
-    navigation.navigate('LoginScreen');
-    
+    navigation.navigate('Login', null);
 }
 
 const styles = StyleSheet.create({

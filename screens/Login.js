@@ -14,7 +14,7 @@ export default class LoginScreen extends Component {
 
   continue = () => {
     Fire.loginWithAnonymously();
-    this.props.navigation.navigate('DashboardScreen')
+    this.props.navigation.navigate('Dashboard')
   }
 
   isUserEqual = (googleUser, firebaseUser) => {
@@ -105,7 +105,7 @@ export default class LoginScreen extends Component {
 
       if (result.type === 'success') {
         this.onSignIn(result);
-        this.props.navigation.navigate('DashboardScreen', result)
+        this.props.navigation.navigate('Dashboard', result)
         return result.accessToken;
       } else {
         return { cancelled: true };
