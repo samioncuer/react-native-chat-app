@@ -29,8 +29,13 @@ export default class Lessons extends Component {
     }
     render() {
         const { navigation } = this.props;
+        
+        console.log(this.props.route.params);
         return (
             <SafeAreaView style={styles.container}>
+                 <TouchableOpacity style={styles.add} onPress={() => navigation.navigate('createLesson', this.props.route.params)}>
+                     <Text style={{ color: 'grey', fontWeight: 'bold', justifyContent: 'center'}}>Ders oluştur</Text>
+                 </TouchableOpacity>
                 <FlatList
                     data={classes}
                     keyExtractor={(item, index) => index.toString()}
@@ -72,4 +77,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
     },
+    add: {
+        backgroundColor: "#ffc29e",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        alignSelf: 'center',
+        height: 40
+    }
 });
