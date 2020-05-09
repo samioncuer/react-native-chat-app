@@ -72,7 +72,7 @@ function TabsNavBar() {
       <Tab.Screen name="Home" component={Home} />
       {/* <Tab.Screen name="Notifications" component={Bildirimler} /> */}
       <Tab.Screen name="Inbox" component={Inbox} />
-      {/* <Tab.Screen name="Rooms" component={Rooms} /> */}
+       <Tab.Screen name="Rooms" component={Rooms} /> 
       <Tab.Screen name="Profile" component={Profil} />
     </Tab.Navigator>
   );
