@@ -24,6 +24,7 @@ export default class Lessons extends Component {
                     classList.push({ class_name, _id, uni_id, department_id })
                 })
                 classes = (classList);
+                this.setState({ classList })
             })
     }
     render() {

@@ -15,6 +15,7 @@ export default class Departments extends Component {
                 departmentList.push({ department_name, _id, uni_id })
             })
             departments = (departmentList);
+            this.setState({ departmentList })
         })
     }
     render() {
