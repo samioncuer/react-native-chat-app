@@ -13,8 +13,8 @@ export default class Home extends Component {
     firebase.database().ref().child('universities').once('value', (snap) => {
       let universityList = []
       snap.forEach((university) => {
-        const { uni_name, _id } = university.val()
-        universityList.push({ uni_name, _id })
+        const { uni_name, _id, departments } = university.val()
+        universityList.push({ uni_name, _id, departments })
       })
       universities = (universityList);
       this.setState({ universityList })

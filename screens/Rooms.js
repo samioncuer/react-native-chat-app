@@ -33,8 +33,10 @@ class Rooms extends React.Component {
                 _id: this.state.department._id,
                 department_name: this.state.department._name,
                 created_date: this.state.department._created_date,
-                uni_id: this.state.uni._id,
-                uni_name: this.state.uni.uni_name
+                university: {
+                    id: this.state.uni._id,
+                    name: this.state.uni._name
+                },
             }).then(
                 firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
                     _id: this.state.class._id,
@@ -87,6 +89,8 @@ class Rooms extends React.Component {
                                     placeholder="Class Name"
                                     onChangeText={(className) => this.setState({ class: { _name: className, _id: nanoid(), _created_date: Date.now() } })}
                                 />
+
+
                                 <TouchableHighlight
                                     style={{ ...styles.openButton, marginTop: 25 }}
                                     onPress={() => {

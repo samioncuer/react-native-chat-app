@@ -16,14 +16,20 @@ export default class CreateLesson extends React.Component {
     }
 
     saveDatastoFirebase() {
-        
-                firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
-                    _id: this.state.class._id,
-                    class_name: this.state.class._name,
-                    created_date: this.state.class._created_date,
-                    uni_id: this.state.uni._id,
-                    department_id: this.state.department._id
-                })
+            firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
+                _id: this.state.class._id,
+                class_name: this.state.class._name,
+                created_date: this.state.class._created_date,
+                university: {
+                    id: this.state.uni._id,
+                    name: this.state.uni._name
+                },
+                department: {
+                    id: this.state.department._id,
+                    name: this.state.department._name,
+                }
+
+            })
     }
 
     render() {
@@ -46,10 +52,10 @@ export default class CreateLesson extends React.Component {
                                     <Button title="x" onPress={() => this.setModalVisible(!this.state.modalVisible, navigation)} />
                                 </View>
                                 <Text style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
-                                    {this.props.route.params.uni_id}
+                                    {this.props.route.params.university.name }
                                 </Text>
                                 <Text style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
-                                    {this.props.route.params._id}
+                                    {this.props.route.params.department.name}
                                 </Text>
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}

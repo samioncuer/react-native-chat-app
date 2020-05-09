@@ -11,8 +11,8 @@ export default class Departments extends Component {
         firebase.database().ref('universities').child(this.props.route.params._id).child('departments').once('value', (snap) => {
             let departmentList = []
             snap.forEach((department) => {
-                const { department_name, _id, uni_id } = department.val()
-                departmentList.push({ department_name, _id, uni_id })
+                const { department_name, _id, university } = department.val()
+                departmentList.push({ department_name, _id, university })
             })
             departments = (departmentList);
             this.setState({ departmentList })

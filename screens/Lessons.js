@@ -20,8 +20,8 @@ export default class Lessons extends Component {
             .once('value', (snap) => {
                 let classList = []
                 snap.forEach((item) => {
-                    const { class_name, _id, uni_id, department_id } = item.val()
-                    classList.push({ class_name, _id, uni_id, department_id })
+                    const { class_name, _id, department, university } = item.val()
+                    classList.push({ class_name, _id, department, university })
                 })
                 classes = (classList);
                 this.setState({ classList })
