@@ -42,7 +42,6 @@ export default class Departments extends Component {
                                     <Text style={{ color: 'grey', fontWeight: 'bold', padding: 15 }}> {item.department_name} </Text>
                                 </View>
                             </View>
-                            <View style={{ width: width, height: 1, backgroundColor: 'darkgrey' }} />
                         </TouchableOpacity>
                     } />
             </SafeAreaView>

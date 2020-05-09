@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { Modal, StyleSheet, TouchableHighlight, View, Alert, Text, TextInput, Dimensions } from 'react-native';
+import { Modal, StyleSheet, TouchableHighlight, View, Alert, Text, TextInput, Dimensions, Button } from 'react-native';
 import firebase from 'firebase';
 import { nanoid } from 'nanoid/non-secure'
 
 const { width } = Dimensions.get('window')
 
-export default class createLesson extends React.Component {
-   
+export default class CreateLesson extends React.Component {
+    state = {
+        modalVisible: true,
+    };
+
+    setModalVisible = (visible, navigation) => {
+        this.setState({ modalVisible: visible });
+        navigation.goBack();
+    }
 
     saveDatastoFirebase() {
         firebase.database().ref('universities').child(this.state.uni._id).set({
@@ -40,18 +47,20 @@ export default class createLesson extends React.Component {
                     <Modal
                         animationType="slide"
                         transparent={true}
-                       
+                        visible={this.state.modalVisible}
                         onRequestClose={() => {
                             Alert.alert("Modal has been closed.");
                         }}
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                              
-                                <Text  style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
+                                <View style={styles.closeButton}>
+                                    <Button title="x" onPress={() => this.setModalVisible(!this.state.modalVisible, navigation)} />
+                                </View>
+                                <Text style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
                                     {this.props.route.params.uni_id}
                                 </Text>
-                                <Text  style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
+                                <Text style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
                                     {this.props.route.params._id}
                                 </Text>
                                 <TextInput

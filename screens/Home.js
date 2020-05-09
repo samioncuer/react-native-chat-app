@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, FlatList, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, SafeAreaView, ImageBackground, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import firebase from 'firebase';
 const { width } = Dimensions.get('window');
@@ -31,21 +31,15 @@ export default class Home extends Component {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) =>
             <TouchableOpacity onPress={() => navigation.navigate('Departments', item)}>
-              <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', padding: 5, width: width }}>
-                <Image
-                  style={{
-                    margin: 5,
-                    height: 40,
-                    width: 40,
-                    borderRadius: 20
-                  }}
-                  source={{ uri: 'https://placeimg.com/140/140/any' }}
-                  resizeMode="stretch" />
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ color: 'grey', fontWeight: 'bold', padding: 15 }}> {item.uni_name} </Text>
-                </View>
+              <View style={{ padding: 5, width: width }}>
+                <Text style={styles.uniName}> {item.uni_name} </Text>
+                <ImageBackground
+                  style={styles.brImage}
+                  source={{ uri: 'https://i.picsum.photos/id/71/500/400.jpg' }}>
+                  <View style={styles.uniCard} >
+                  </View>
+                </ImageBackground>
               </View>
-              <View style={{ width: width, height: 1, backgroundColor: 'darkgrey' }} />
             </TouchableOpacity>
           } />
       </SafeAreaView>
@@ -53,17 +47,20 @@ export default class Home extends Component {
   }
 }
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      marginTop: Constants.statusBarHeight,
-    },
-    item: {
-      backgroundColor: '#f9c2ff',
-      padding: 20,
-      marginVertical: 8,
-      marginHorizontal: 16,
-    },
-    title: {
-      fontSize: 32,
-    },
-  });
+  uniName: {
+    fontSize: 14,
+    textAlign: "center",
+    color: 'black',
+    fontWeight: 'bold',
+    padding: 13
+  },
+  uniCard: {
+    height: 130,
+  },
+  brImage: {
+    flex: 1,
+    alignItems: 'center',
+    borderRadius: 50,
+    margin: 15
+  }
+});

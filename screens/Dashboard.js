@@ -30,9 +30,9 @@ export default class DashboardScreen extends Component {
           <Stack.Screen name="LessonChat" component={LessonChat} />
           <Stack.Screen name="Departments" component={Departments} />
           <Stack.Screen name="Lessons" component={Lessons} />
-          <Stack.Screen name="CreateLesson" component={CreateLesson} options={{ title: "Ders Oluştur"}}/>
+          <Stack.Screen name="CreateLesson" component={CreateLesson} options={{ title: "Ders Oluştur" }} />
           <Stack.Screen name="Login" component={Login} />
-          
+
         </Stack.Navigator>
       </NavigationContainer>
     );
