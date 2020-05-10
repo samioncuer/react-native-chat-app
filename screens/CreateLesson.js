@@ -15,26 +15,25 @@ export default class CreateLesson extends React.Component {
         navigation.goBack();
     }
 
-    saveDatastoFirebase() {
-            firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).child('classes').child(this.state.class._id).set({
-                _id: this.state.class._id,
-                class_name: this.state.class._name,
-                created_date: this.state.class._created_date,
-                university: {
-                    id: this.state.uni._id,
-                    name: this.state.uni._name
-                },
-                department: {
-                    id: this.state.department._id,
-                    name: this.state.department._name,
-                }
-
-            })
+    saveDatastoFirebase(val) {
+        console.log("VALLLLLLLLLLLLLLLLLL:", val.route)
+        firebase.database().ref('universities').child(val.route.params.university.id).child('departments').child(val.route.params._id).child('classes').child(this.state.class._id).set({
+            _id: this.state.class._id,
+            class_name: this.state.class._name,
+            created_date: this.state.class._created_date,
+            university: {
+                id: val.route.params.university.id,
+                name: val.route.params.university.name
+            },
+            department: {
+                id: val.route.params._id,
+                name: val.route.params.department_name,
+            }
+        })
     }
 
     render() {
         const { navigation } = this.props;
-        console.log(this.props.route.params);
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={styles.centeredView}>
@@ -52,20 +51,22 @@ export default class CreateLesson extends React.Component {
                                     <Button title="x" onPress={() => this.setModalVisible(!this.state.modalVisible, navigation)} />
                                 </View>
                                 <Text style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
-                                    {this.props.route.params.university.name }
+                                    {this.props.route.params.university.name}
                                 </Text>
                                 <Text style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }} >
-                                    {this.props.route.params.department.name}
+                                    {this.props.route.params.department_name}
                                 </Text>
                                 <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
                                     placeholder="Class Name"
-                                    onChangeText={(className) => this.setState({ class: { _name: className, _id: nanoid(), _created_date: Date.now() } })}
+                                    onChangeText={(className) => this.setState({
+                                        class: { _name: className, _id: nanoid(), _created_date: Date.now() }
+                                    })}
                                 />
                                 <TouchableHighlight
                                     style={{ ...styles.openButton, marginTop: 25 }}
                                     onPress={() => {
-                                        this.setModalVisible(!this.state.modalVisible); this.saveDatastoFirebase()
+                                        this.setModalVisible(!this.state.modalVisible, navigation); this.saveDatastoFirebase(this.props)
                                     }}>
                                     <Text style={{ ...styles.textStyle }}>Ekle</Text>
 

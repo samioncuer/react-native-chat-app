@@ -75,8 +75,8 @@ class Fire {
     }
 
     getLessonChatDbSnap(callback, val) {
-        this.lessonsChatRoom.uniId = val.uni_id;
-        this.lessonsChatRoom.departmentId = val.department_id;
+        this.lessonsChatRoom.uniId = val.university.id;
+        this.lessonsChatRoom.departmentId = val.department.id;
         this.lessonsChatRoom.classId = val._id;
 
         this.LessonDb

@@ -7,7 +7,6 @@ import Fire from '../Fire';
 export default class Profil extends Component {
 
     render() {
-        console.log(Fire.currentUser);
         const dfUri = 'https://i.picsum.photos/id/992/200/300.jpg';
         const anonim = "anonim";
         const { navigation } = this.props;

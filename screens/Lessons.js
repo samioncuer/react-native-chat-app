@@ -13,7 +13,7 @@ export default class Lessons extends Component {
     componentDidMount() {
         firebase.database()
             .ref('universities')
-            .child(this.props.route.params.uni_id)
+            .child(this.props.route.params.university.id)
             .child('departments')
             .child(this.props.route.params._id)
             .child('classes')
@@ -26,11 +26,11 @@ export default class Lessons extends Component {
                 classes = (classList);
                 this.setState({ classList })
             })
+
     }
     render() {
         const { navigation } = this.props;
 
-        console.log(this.props.route.params);
         return (
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity style={styles.add} onPress={() => navigation.navigate('CreateLesson', this.props.route.params)}>
