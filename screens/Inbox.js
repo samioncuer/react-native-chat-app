@@ -34,12 +34,12 @@ export default class Inbox extends Component {
           data={threads}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) =>
-            <TouchableOpacity onPress={() => navigation.navigate('Chat', item)}>
+            <TouchableOpacity onPress={() => navigation.navigate('Chat', item.details.receiver)}>
               <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', padding: 5, width: width }}>
                 <Image style={{ height: 40, width: 40, borderRadius: 20 }}
-                  source={{ uri: item.profile_picture }} />
+                  source={{ uri: item.details.receiver.profile_picture }} />
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ color: 'grey', fontWeight: 'bold', padding: 15 }}>{item.first_name}</Text>
+                  <Text style={{ color: 'grey', fontWeight: 'bold', padding: 15 }}>{item.details.receiver.first_name}</Text>
                 </View>
               </View>
             </TouchableOpacity>
