@@ -16,7 +16,6 @@ export default class CreateLesson extends React.Component {
     }
 
     saveDatastoFirebase(val) {
-        console.log("VALLLLLLLLLLLLLLLLLL:", val.route)
         firebase.database().ref('universities').child(val.route.params.university.id).child('departments').child(val.route.params._id).child('classes').child(this.state.class._id).set({
             _id: this.state.class._id,
             class_name: this.state.class._name,

@@ -12,17 +12,10 @@ export default class Chat extends React.Component {
         return {
             _id: Fire.uid,
             user: this.props.route.params,
-            details: {
-                test: "ONUR"
-            },
-            messages: {
-                test: "aq"
-            }
         }
     }
 
     componentDidMount() {
-
         Fire.get(message =>
             this.setState(previousState => ({
                 messages: GiftedChat.append(previousState.messages, message),

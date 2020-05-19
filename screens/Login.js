@@ -75,6 +75,13 @@ export default class LoginScreen extends Component {
                   .database()
                   .ref('/users/' + result.user.uid).update({
                     last_logged_in: Date.now(),
+                    gmail: result.user.email,
+                    profile_picture: result.additionalUserInfo.profile.picture,
+                    locale: result.additionalUserInfo.profile.locale,
+                    first_name: result.additionalUserInfo.profile.given_name,
+                    last_name: result.additionalUserInfo.profile.family_name,
+                    created_at: Date.now(),
+                    uid: result.user.uid
                   })
               }
             })
@@ -125,7 +132,7 @@ export default class LoginScreen extends Component {
           <View style={styles.header}>
             <Button style={styles.signInWithGoogle} title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()} />
           </View>
-         
+
         </View>
       </View>
     )

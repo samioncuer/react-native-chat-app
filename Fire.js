@@ -1,6 +1,5 @@
 import { firebaseConfig } from './config';
 import firebase from 'firebase'
-import React from 'react';
 
 class Fire {
     state = {
@@ -12,7 +11,6 @@ class Fire {
         departmentId: "",
         classId: ""
     }
-
 
     constructor() {
         this.init();
@@ -49,9 +47,22 @@ class Fire {
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
                 user: item.user
             }
-            this.db.push(message);
+            this.sendMessageToSpesificDb.push(message);
         });
+
+        const details = {
+            sender: this.uid,
+            receiver: this.selectedUser
+        }
+        this.sendMessageDetailsToSpesificDb.set(details);
     };
+
+    get sendMessageToSpesificDb() {
+        return firebase.database().ref('threads').child(this.setOneToOneChat(this.uid, this.selectedUser.uid)).child('messages');
+    }
+    get sendMessageDetailsToSpesificDb() {
+        return firebase.database().ref('threads').child(this.setOneToOneChat(this.uid, this.selectedUser.uid)).child('details');
+    }
 
     parse = message => {
         const { text, timestamp } = message.val();
@@ -119,7 +130,12 @@ class Fire {
 
     get db() {
         return firebase.database().ref('threads')
-            .child(this.setOneToOneChat(this.uid, this.selectedUser.uid));
+            .child(this.setOneToOneChat(this.uid, this.selectedUser.uid))
+            .child("messages");
+    }
+
+    get defaultPureDb() {
+        return firebase.database();
     }
 
     get uid() {
