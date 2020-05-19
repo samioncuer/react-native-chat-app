@@ -15,7 +15,7 @@ export default class Inbox extends Component {
       let threadList = []
       snap.forEach((user) => {
         const { details, messages } = user.val()
-        if (details.receiver.uid === Fire.uid) {
+        if (details.receiver.uid === Fire.uid || details.sender.uid) {
           threadList.push({ details, messages })
         }
       })
