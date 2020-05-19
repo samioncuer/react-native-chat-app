@@ -11,7 +11,13 @@ export default class Chat extends React.Component {
     get user() {
         return {
             _id: Fire.uid,
-            user: this.props.route.params
+            user: this.props.route.params,
+            details: {
+                test: "ONUR"
+            },
+            messages: {
+                test: "aq"
+            }
         }
     }
 

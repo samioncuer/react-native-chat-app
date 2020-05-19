@@ -116,18 +116,10 @@ class Fire {
             return uid2 + uid1;
         }
     }
-    setThread(user1, user2) {
-        return firebase.database()
-                       .ref( '/threads/' + this.setOneToOneChat(this.uid, this.selectedUserId))
-                       .set({
-                           detail: {
-                                sender: user1,
-                                receiver: user2
-                           }
-         });
-        }
+
     get db() {
-        return firebase.database().ref( this.setThread( this.currentUser, this.selectedUser ) + 'messages/' );
+        return firebase.database().ref('threads')
+            .child(this.setOneToOneChat(this.uid, this.selectedUser.uid));
     }
 
     get uid() {
