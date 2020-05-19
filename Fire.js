@@ -49,9 +49,12 @@ class Fire {
             }
             this.sendMessageToSpesificDb.push(message);
         });
-
         const details = {
-            sender: this.uid,
+            sender: {
+                first_name: this.currentUser.displayName,
+                profile_picture: this.currentUser.photoURL,
+                uid: this.currentUser.uid
+            },
             receiver: this.selectedUser
         }
         this.sendMessageDetailsToSpesificDb.set(details);
