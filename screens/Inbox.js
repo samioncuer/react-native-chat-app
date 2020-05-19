@@ -11,6 +11,10 @@ export default class Inbox extends Component {
   }
 
   componentDidMount() {
+    this.FetchData();
+  }
+
+  FetchData() {
     firebase.database().ref().child('threads').once('value', (snap) => {
       let threadList = []
       snap.forEach((user) => {
@@ -25,6 +29,7 @@ export default class Inbox extends Component {
   }
 
   render() {
+    this.FetchData();
     const { navigation } = this.props;
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
