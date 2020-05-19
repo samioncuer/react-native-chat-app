@@ -67,7 +67,8 @@ class Fire {
         };
     };
 
-    get(callback, selectedUserUid) {
+    get(callback, selectedUser, selectedUserUid) {
+        this.selectedUser = selectedUser;
         this.selectedUserId = selectedUserUid;
         this.db
             .limitToLast(20)
@@ -115,9 +116,18 @@ class Fire {
             return uid2 + uid1;
         }
     }
-
+    setThread(user1, user2) {
+        return firebase.database()
+                       .ref( '/threads/' + this.setOneToOneChat(this.uid, this.selectedUserId))
+                       .set({
+                           detail: {
+                                sender: user1,
+                                receiver: user2
+                           }
+         });
+        }
     get db() {
-        return firebase.database().ref('messages/' + this.setOneToOneChat(this.uid, this.selectedUserId));
+        return firebase.database().ref( this.setThread( this.currentUser, this.selectedUser ) + 'messages/' );
     }
 
     get uid() {

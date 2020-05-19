@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Chat from './Chat';
 import Inbox from './Inbox';
 import Rooms from './Rooms';
+import Users from './Users';
 import Lessons from './Lessons';
 import Departments from './Departments';
 import Login from './Login';
@@ -56,8 +57,8 @@ function TabsNavBar() {
             iconName = "ios-chatbubbles";
           } else if (route.name === "Profile") {
             iconName = "ios-contact";
-          } else if (route.name === "Rooms") {
-            iconName = "md-apps";
+          } else if (route.name === "Users") {
+            iconName = "ios-people";
           }
           // https://expo.github.io/vector-icons/
           // You can return any component that you like here!
@@ -72,8 +73,9 @@ function TabsNavBar() {
       <Tab.Screen name="Home" component={Home} />
       {/* <Tab.Screen name="Notifications" component={Bildirimler} /> */}
       <Tab.Screen name="Inbox" component={Inbox} />
-       <Tab.Screen name="Rooms" component={Rooms} /> 
+       <Tab.Screen name="Users" component={Users} /> 
       <Tab.Screen name="Profile" component={Profil} />
+      {/* <Tab.Screen name="Rooms" component={Rooms} /> */}
     </Tab.Navigator>
   );
 }

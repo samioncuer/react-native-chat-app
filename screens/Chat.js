@@ -20,7 +20,8 @@ export default class Chat extends React.Component {
         Fire.get(message =>
             this.setState(previousState => ({
                 messages: GiftedChat.append(previousState.messages, message),
-            })), this.props.route.params.uid
+            })), this.props.route.params,
+            this.props.route.params.uid
         );
     }
     componentWillUnmount() {

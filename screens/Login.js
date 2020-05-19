@@ -125,13 +125,7 @@ export default class LoginScreen extends Component {
           <View style={styles.header}>
             <Button style={styles.signInWithGoogle} title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()} />
           </View>
-          <Text style={styles.header}>or</Text>
-          <View style={styles.header}>
-            <Text style={styles.signInWithAnonym}>Sign In Anonymously</Text>
-            <TouchableOpacity style={styles.continue} onPress={this.continue}>
-              <Ionicons name="md-arrow-round-forward" size={24} color="#fff" />
-            </TouchableOpacity>
-          </View>
+         
         </View>
       </View>
     )
