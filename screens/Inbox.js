@@ -35,7 +35,7 @@ export default class Inbox extends Component {
           data={threads}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) =>
-            <TouchableOpacity onPress={() => navigation.navigate('Chat', item.details.sender.uiid === Fire.uid ? item.details.sender : item.details.receiver)}>
+            <TouchableOpacity onPress={() => navigation.navigate('Chat', item.details.sender.uid === Fire.uid ? item.details.receiver : item.details.sender)}>
               <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', padding: 5, width: width }}>
                 <Image style={{ height: 40, width: 40, borderRadius: 20 }}
                   source={{ uri: item.details.sender.uid === Fire.uid ? item.details.receiver.profile_picture : item.details.sender.profile_picture }} />
