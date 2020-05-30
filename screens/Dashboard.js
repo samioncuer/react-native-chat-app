@@ -25,7 +25,7 @@ export default class DashboardScreen extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Dashboard" component={TabsNavBar} options={{
-            title: " 🦄"
+            title: " ClassChat "
           }} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="LessonChat" component={LessonChat} />
@@ -75,7 +75,7 @@ function TabsNavBar() {
       <Tab.Screen name="Inbox" component={Inbox} />
        <Tab.Screen name="Users" component={Users} /> 
       <Tab.Screen name="Profile" component={Profil} />
-      {/* <Tab.Screen name="Rooms" component={Rooms} /> */}
+       {/* <Tab.Screen name="Rooms" component={Rooms} />  */}
     </Tab.Navigator>
   );
 }

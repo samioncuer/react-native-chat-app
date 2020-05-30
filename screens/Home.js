@@ -13,8 +13,9 @@ export default class Home extends Component {
     firebase.database().ref().child('universities').once('value', (snap) => {
       let universityList = []
       snap.forEach((university) => {
-        const { uni_name, _id, departments } = university.val()
-        universityList.push({ uni_name, _id, departments })
+        const { uni_name, _id, departments, imgUrl } = university.val()
+        console.log(university.val())
+        universityList.push({ uni_name, _id, departments, imgUrl })
       })
       universities = (universityList);
       this.setState({ universityList })
@@ -35,7 +36,7 @@ export default class Home extends Component {
                 <Text style={styles.uniName}> {item.uni_name} </Text>
                 <ImageBackground
                   style={styles.brImage}
-                  source={{ uri: 'https://i.picsum.photos/id/71/500/400.jpg' }}>
+                  source={{ uri: item.imgUrl }}>
                   <View style={styles.uniCard} >
                   </View>
                 </ImageBackground>

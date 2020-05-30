@@ -27,7 +27,8 @@ class Rooms extends React.Component {
         firebase.database().ref('universities').child(this.state.uni._id).set({
             _id: this.state.uni._id,
             uni_name: this.state.uni._name,
-            created_date: this.state.uni._created_date
+            created_date: this.state.uni._created_date,
+            imgUrl: this.state.uniImg._imgUrl
         }).then(
             firebase.database().ref('universities').child(this.state.uni._id).child('departments').child(this.state.department._id).set({
                 _id: this.state.department._id,
@@ -80,8 +81,13 @@ class Rooms extends React.Component {
                                     onChangeText={(uniName) => this.setState({ uni: { _name: uniName, _id: nanoid(), _created_date: Date.now() } })}
                                 />
                                 <TextInput
+                                    style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5 }}
+                                    placeholder="University Logo Url"
+                                    onChangeText={(uniImgUrl) => this.setState({ uniImg: { _imgUrl: uniImgUrl  } })}
+                                />
+                                <TextInput
                                     style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, margin: 5, padding: 5 }}
-                                    placeholder="Departman Name"
+                                    placeholder="Departmant Name"
                                     onChangeText={(departmentName) => this.setState({ department: { _name: departmentName, _id: nanoid(), _created_date: Date.now() } })}
                                 />
                                 <TextInput
@@ -89,7 +95,6 @@ class Rooms extends React.Component {
                                     placeholder="Class Name"
                                     onChangeText={(className) => this.setState({ class: { _name: className, _id: nanoid(), _created_date: Date.now() } })}
                                 />
-
 
                                 <TouchableHighlight
                                     style={{ ...styles.openButton, marginTop: 25 }}

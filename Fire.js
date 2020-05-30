@@ -133,7 +133,7 @@ class Fire {
 
     get db() {
         return firebase.database().ref('threads')
-            .child(this.setOneToOneChat(this.uid, this.selectedUser.uid))
+            .child(this.setOneToOneChat(this.uid, this.selectedUser?.uid))
             .child("messages");
     }
 
